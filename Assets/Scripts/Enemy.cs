@@ -3,23 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Enemy : MonoBehaviour
+public class Enemy : FragileEntity
 {
-    public float initialHp;
-    public float immunityTime;
     public float chaseDistance;
-
+    public float attackDistance;
     public GameObject playerObj;
 
-    public bool isImmune = false;
+    public MeleeAttackItem attackItem;
 
     private NavMeshAgent agent;
-    public float currentHp;
+
+
+
     private void Start()
     {
-        agent = gameObject.GetComponent<NavMeshAgent>();
         currentHp = initialHp;
+
+        agent = gameObject.GetComponent<NavMeshAgent>();
     }
+
 
 
     private void Update()
@@ -28,57 +30,22 @@ public class Enemy : MonoBehaviour
         float distanceToPlayer = (playerObj.transform.position - gameObject.transform.position).magnitude;
         if (distanceToPlayer < chaseDistance)
         {
+            agent.isStopped = false;
             agent.SetDestination(playerObj.transform.position);
         }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.tag == "Weapon")
+        if (distanceToPlayer < attackDistance)
         {
-            MeleeAttackItem attackItem = other.gameObject.GetComponentInParent<MeleeAttackItem>();
-            float damageToRecieve = attackItem.GetCurrentDamage();
-            TryRecieveDamage(damageToRecieve);
-        }
-    }
-
-    private void TryRecieveDamage(float damage)
-    {
-        if (isImmune)
-        {
-            //do nothing
-        }
-        else
-        {
-            RecieveDamage(damage);
-        }
-    }
-    private void RecieveDamage(float damage)
-    {
-        currentHp -= damage;
-
-        if (currentHp <= 0)
-        {
-            Die();
-        }
-        else
-        {
-            isImmune = true;
-            StartCoroutine("ImmunityTimer");
+            agent.isStopped = true;
+            attackItem.TryAttack();
         }
 
     }
-    public IEnumerator ImmunityTimer()
-    {
-        yield return new WaitForSeconds(immunityTime);
 
-        isImmune = false;
-    }
 
-    private void Die()
+
+    public override void Die()
     {
         Destroy(gameObject);
     }
-
 
 }

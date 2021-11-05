@@ -53,9 +53,11 @@
     <UnityVersion>2020.3.21f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Enemy.cs" />
     <Compile Include="Assets\Scripts\MeleeAttackItem.cs" />
     <Compile Include="Assets\Scripts\PrePlayerScript.cs" />
+    <Compile Include="Assets\Scripts\Enemy.cs" />
+    <Compile Include="Assets\Scripts\FragileEntity.cs" />
+    <Compile Include="Assets\Scripts\BreakableObject.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

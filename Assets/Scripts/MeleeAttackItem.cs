@@ -5,22 +5,26 @@ using UnityEngine;
 public class MeleeAttackItem : MonoBehaviour
 {
     public float maxDamage;
-    public float timeToDamage;
-    public float rotationToHit;
+    public float accelerationTime;
 
-    public Transform itemRotationCenterTransform;
-
-    private Quaternion startRotation;
     private bool isAttacking = false;
-    private float currentDamageMultiplier = 1;
-
+    private HingeJoint hinge;
+    private Rigidbody rb;
 
 
     public float GetCurrentDamage()
     {
+        float currentDamageMultiplier = rb.velocity.magnitude;
+        Debug.Log(currentDamageMultiplier);
+
         return currentDamageMultiplier * maxDamage;
     }
 
+    private void Start()
+    {
+        hinge = gameObject.GetComponent<HingeJoint>();
+        rb = gameObject.GetComponent<Rigidbody>();
+    }
 
 
     public void TryAttack()
@@ -32,39 +36,31 @@ public class MeleeAttackItem : MonoBehaviour
         else
         {
             isAttacking = true;
-            StartAttack();
+            Attack();
         }
     }
 
-    public void StartAttack()
+    public void Attack()
     {
-        startRotation = itemRotationCenterTransform.rotation;
         StartCoroutine("Sway");
     }
 
     public IEnumerator Sway()
     {
-        float endYRot = rotationToHit;
-        float duration = timeToDamage;
+        hinge.useSpring = false;
+        hinge.useMotor = true;
+        var motor = hinge.motor;
 
-        float t = 0;
-        while (t < 1f)
-        {
-            t = Mathf.Min(1f, t + Time.deltaTime / duration);
-            currentDamageMultiplier = t;
-            Vector3 newEulerOffset = Vector3.up * (endYRot * t*t);
+        yield return new WaitForSeconds(accelerationTime);
 
-            itemRotationCenterTransform.rotation = startRotation * Quaternion.Euler(newEulerOffset);
-
-            yield return null;
-        }
+        hinge.useSpring = true;
+        hinge.useMotor = false;
 
         EndAttack();
     }
 
     private void EndAttack()
     {
-        itemRotationCenterTransform.rotation = startRotation;
         isAttacking = false;
     }
 
