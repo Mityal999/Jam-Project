@@ -14,8 +14,7 @@ public class MeleeAttackItem : MonoBehaviour
 
     public float GetCurrentDamage()
     {
-        float currentDamageMultiplier = rb.velocity.magnitude;
-        Debug.Log(currentDamageMultiplier);
+        float currentDamageMultiplier = rb.velocity.magnitude / 10;
 
         return currentDamageMultiplier * maxDamage;
     }
