@@ -6,6 +6,8 @@ public class PrePlayerScript : FragileEntity
 {
     public MeleeAttackItem attackItem;
 
+    public HealthBar healthBar;
+
     public Transform respawnTransform;
 
 

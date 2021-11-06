@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{3FAF9E75-88BA-313C-F392-D5AD3398DE00}</ProjectGuid>
+    <ProjectGuid>{2B67C00D-246F-7F62-AD44-00EEC3461FE6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -56,11 +56,12 @@
     <Compile Include="Assets\Scripts\FragileEntity.cs" />
     <Compile Include="Assets\Scripts\MeleeAttackItem.cs" />
     <Compile Include="Assets\Scripts\ShuffledSoundPlayer.cs" />
+    <Compile Include="Assets\Scripts\MainMenu.cs" />
     <Compile Include="Assets\Scripts\PrePlayerScript.cs" />
     <Compile Include="Assets\Scripts\BreakableObject.cs" />
     <Compile Include="Assets\Scripts\Enemy.cs" />
     <Compile Include="Assets\Scripts\DynamicSoundSystem.cs" />
-    <Compile Include="Assets\Scripts\MainMenu.cs" />
+    <Compile Include="Assets\Scripts\HealthBar.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
@@ -774,11 +775,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="NavMeshComponentsEditor.csproj">
-      <Project>{5EF4AC1C-18AD-76C4-481E-3AAC157049AC}</Project>
+      <Project>{ACE51174-21BB-2B0C-90C8-33BB93D4FA8A}</Project>
       <Name>NavMeshComponentsEditor</Name>
     </ProjectReference>
     <ProjectReference Include="NavMeshComponents.csproj">
-      <Project>{82403957-13A0-FC13-026D-45CBD2195BBE}</Project>
+      <Project>{8BCCCA95-C5CB-0CF7-940F-4DC313DD1D5C}</Project>
       <Name>NavMeshComponents</Name>
     </ProjectReference>
   </ItemGroup>
